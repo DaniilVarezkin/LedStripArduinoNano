@@ -6,6 +6,8 @@ char cmd_buf[32];
 Command commands[] = {
     {CMD_MODE, handleMode},
     {CMD_BRIGHTNESS, handleBrightness},
+    {CMD_GRADCOLOR0, handleGradColor0},
+    {CMD_GRADCOLOR1, handleGradColor1},
 };
 
 void processCommand(const char* command){

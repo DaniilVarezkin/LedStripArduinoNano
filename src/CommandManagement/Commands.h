@@ -7,9 +7,11 @@
 #include "Effects/EffectsParam.h"  
 #include "Effects/EffectsManager.h"
 #include "Bluetooth/Bluetooth.h"
-#include "ColorFuns/ColorFuns.h"
+#include "ColorUtils/ConvertColorFuns.h"
 
 void handleMode(const char *value);
 void handleBrightness(const char *value);
+void handleGradColor0(const char *value);
+void handleGradColor1(const char *value);
 
 #endif

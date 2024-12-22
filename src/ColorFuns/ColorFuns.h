@@ -1,3 +1,6 @@
+#ifndef __COLOR_FUNS_H__
+#define __COLOR_FUNS_H__
+
 #include <FastLED.h>
 
 CRGB hex2CRGB(const char* hex_color_s) {
@@ -14,7 +17,9 @@ CRGB hex2CRGB(const char* hex_color_s) {
     return color;
 }
 
-void CRGB2hex(const CRGB* crgb_color, char* hex_color) {
+void CRGB2hex(const CRGB crgb_color, char* hex_color) {
     // Формируем строку в формате RRGGBB
-    sprintf(hex_color, "%02X%02X%02X", crgb_color->r, crgb_color->g, crgb_color->b);
+    sprintf(hex_color, "%02X%02X%02X", crgb_color.r, crgb_color.g, crgb_color.b);
 }
+
+#endif

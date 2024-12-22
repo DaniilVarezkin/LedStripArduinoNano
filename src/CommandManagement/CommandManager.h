@@ -11,6 +11,7 @@ typedef struct {
     const char *key;
     void (*handler)(const char *value);
 } Command;
+
 void CheckCommands();
 
 

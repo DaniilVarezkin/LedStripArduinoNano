@@ -1,7 +1,7 @@
 #ifndef __COMMANDS_H__
 #define __COMMANDS_H__
 
-//#include "CommandManager.h"
+#include <Arduino.h>
 
 #include "CommandWords.h"
 #include "Effects/EffectsParam.h"  

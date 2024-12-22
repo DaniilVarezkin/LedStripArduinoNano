@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "Effects/EffectsManager.h"
 #include "CommandManagement/CommandManager.h"
-
+#include "ColorFuns/ColorFuns.h"
 extern int __bss_end;
 extern void *__brkval;
 
@@ -15,8 +15,11 @@ int memoryFree()
    return freeValue;
 }
 
+
+
 void setup() {
   Serial.begin(9600);
+
 
   change_mode(7); 
 

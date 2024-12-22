@@ -1,5 +1,8 @@
 #include "Commands.h"
 
+
+
+
 void handleMode(const char *value) {
     if (strcmp(value, CMD_GET) == 0) {
         char response[16];
@@ -23,3 +26,17 @@ void handleBrightness(const char *value) {
         SendResponse("OK");
     }
 }
+
+void handleGradColor0(const char *value) {
+    if (strcmp(value, CMD_GET) == 0) {
+        char response[16];
+        sprintf(response, "%s=%d", CMD_GRADCOLOR0, brightness);
+        SendResponse(response);
+    } else {
+        int new_brightness = atoi(value);
+        new_brightness = constrain(new_brightness, 0, 255);
+        brightness = new_brightness;
+        SendResponse("OK");
+    }
+}
+

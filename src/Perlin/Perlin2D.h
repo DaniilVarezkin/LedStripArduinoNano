@@ -1,6 +1,7 @@
 #pragma once
 #include <math.h>
 #include <stdlib.h>
+#include <Arduino.h>
 
 #ifndef PER_TABLE_SIZE
 	#define PER_TABLE_SIZE 32
@@ -21,9 +22,9 @@ namespace Perlin {
 
 		static float qunticCurve(float t);
 
-		float* GetPseudoRandomGradientVector(int x, int y);
+		void SetPseudoRandomGradientVector(int x, int y, float vector[2]);
 
-		static float Dot(float a[], float b[]);
+		static float Dot(const float* a, const float* b);
 
 		~Perlin2D();
 	private:

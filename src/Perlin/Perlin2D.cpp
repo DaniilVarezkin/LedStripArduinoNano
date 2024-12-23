@@ -2,6 +2,10 @@
 
 namespace Perlin {
 
+	float topLeftGradient[2];
+	float topRightGradient[2];
+	float bottomLeftGradient[2];
+	float bottomRightGradient[2];
 	
 	Perlin2D::Perlin2D()
 	{
@@ -18,10 +22,10 @@ namespace Perlin {
 		float pointInQuadX = fx - left;
 		float pointInQuadY = fy - top;
 
-		float* topLeftGradient = GetPseudoRandomGradientVector(left, top);
-		float* topRightGradient = GetPseudoRandomGradientVector(left + 1, top);
-		float* bottomLeftGradient = GetPseudoRandomGradientVector(left, top + 1);
-		float* bottomRightGradient = GetPseudoRandomGradientVector(left + 1, top + 1);
+		SetPseudoRandomGradientVector(left, top, topLeftGradient);
+		SetPseudoRandomGradientVector(left + 1, top, topRightGradient);
+		SetPseudoRandomGradientVector(left, top + 1, bottomLeftGradient);
+		SetPseudoRandomGradientVector(left + 1, top + 1, bottomRightGradient);
 
 		float distanceToTopLeft[2] = { pointInQuadX, pointInQuadY };
 		float distanceToTopRight[2] = { pointInQuadX - 1, pointInQuadY };
@@ -40,13 +44,6 @@ namespace Perlin {
 		float bx = lerp(bx1, bx2, pointInQuadX);
 		float tb = lerp(tx, bx, pointInQuadY);
 
-
-		delete[] topLeftGradient;
-		delete[] topRightGradient;
-		delete[] bottomLeftGradient;
-		delete[] bottomRightGradient;
-
-
 		return tb;
 	}
 
@@ -60,26 +57,31 @@ namespace Perlin {
 		return t * t * t * (t * (t * 6 - 15) + 10);
 	}
 
-	float* Perlin2D::GetPseudoRandomGradientVector(int x, int y)
+	void setVectorCoord(float vector[2], float x, float y){
+		vector[0] = x;
+		vector[1] = y;
+	}
+
+	void Perlin2D::SetPseudoRandomGradientVector(int x, int y, float vector[2])
 	{
-		int v = (int)(((x * 1836311903) ^ ((y * 2971215073) + 4807526976)) & (PER_TABLE_SIZE - 1));
+		int v = (x * 31 + y * 37) & (PER_TABLE_SIZE - 1);
 		v = permutationTable[v] & 7;  // Используем 8 возможных направлений
 
 		switch (v)
 		{
-			case 0: return new float[2] { 1, 0 };
-			case 1: return new float[2] { -1, 0 };
-			case 2: return new float[2] { 0, 1 };
-			case 3: return new float[2] { 0, -1 };
-			case 4: return new float[2] { 1, 1 };
-			case 5: return new float[2] { -1, 1 };
-			case 6: return new float[2] { 1, -1 };
-			case 7: return new float[2] { -1, -1 };
-			default: return new float[2] { 0, 0 }; // Безопасность
+			case 0: setVectorCoord(vector, 1, 0); break;
+			case 1: setVectorCoord(vector, -1, 0); break;
+			case 2: setVectorCoord(vector, 0, 1); break;
+			case 3: setVectorCoord(vector, 0, -1); break;
+			case 4: setVectorCoord(vector, 1, 1); break;
+			case 5: setVectorCoord(vector, -1, 1); break;
+			case 6: setVectorCoord(vector, 1, -1); break;
+			case 7: setVectorCoord(vector, -1, -1); break;
+			default: setVectorCoord(vector, 0, 0); break; // Безопасность
 		}
 	}
 
-	float Perlin2D::Dot(float a[], float b[])
+	float Perlin2D::Dot(const float* a, const float* b)
 	{
 		return a[0] * b[0] + a[1] * b[1];
 	}

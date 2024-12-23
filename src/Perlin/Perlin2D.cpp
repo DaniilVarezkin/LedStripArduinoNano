@@ -65,20 +65,14 @@ namespace Perlin {
 	void Perlin2D::SetPseudoRandomGradientVector(int x, int y, float vector[2])
 	{
 		int v = (x * 31 + y * 37) & (PER_TABLE_SIZE - 1);
-		v = permutationTable[v] & 7;  // Используем 8 возможных направлений
+		v = permutationTable[v] & 7; // Используем 8 возможных направлений
 
-		switch (v)
-		{
-			case 0: setVectorCoord(vector, 1, 0); break;
-			case 1: setVectorCoord(vector, -1, 0); break;
-			case 2: setVectorCoord(vector, 0, 1); break;
-			case 3: setVectorCoord(vector, 0, -1); break;
-			case 4: setVectorCoord(vector, 1, 1); break;
-			case 5: setVectorCoord(vector, -1, 1); break;
-			case 6: setVectorCoord(vector, 1, -1); break;
-			case 7: setVectorCoord(vector, -1, -1); break;
-			default: setVectorCoord(vector, 0, 0); break; // Безопасность
-		}
+		static const float gradients[8][2] = {
+			{1, 0}, {-1, 0}, {0, 1}, {0, -1},
+			{0.707f, 0.707f}, {-0.707f, 0.707f}, {0.707f, -0.707f}, {-0.707f, -0.707f}
+		};
+		vector[0] = gradients[v][0];
+		vector[1] = gradients[v][1];
 	}
 
 	float Perlin2D::Dot(const float* a, const float* b)

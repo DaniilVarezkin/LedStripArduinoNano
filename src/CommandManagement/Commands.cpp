@@ -6,7 +6,7 @@ void handleMode(const char *value) {
         sprintf(response, "%s=%d", CMD_MODE, led_mode);
         SendResponse(response);
     } else {
-        change_mode(atoi(value));
+        ChangeMode(atoi(value));
         SendResponse("OK");
     }
     Serial.println("handleMode end");
@@ -36,7 +36,7 @@ void handleGradColor0(const char *value) {
         SendResponse(response);
     } else {
         gradcolor0 = rgb2hsv_approximate(hex2CRGB(value));
-        change_mode(led_mode);
+        ChangeMode(led_mode);
         SendResponse("OK");
     }
 }
@@ -52,7 +52,7 @@ void handleGradColor1(const char *value) {
         SendResponse(response);
     } else {
         gradcolor1 = rgb2hsv_approximate(hex2CRGB(value));
-        change_mode(led_mode);
+        ChangeMode(led_mode);
         SendResponse("OK");
     }
 }

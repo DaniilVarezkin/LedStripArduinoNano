@@ -3,18 +3,19 @@
 #include <FastLED.h>
 #include <Perlin/Perlin2D.h>
 #include <stdint.h>
+
 #include "EffectsParam.h"   
 
 #define FPS_TO_DELAY_MS(x) {1000/x}
 
-void change_mode(int newmode);
-void update_leds();
+void ChangeMode(int newmode);
+void UpdateLeds();
 
 //  Прототипы эффектов
 void FillColor(uint8_t cred, uint8_t cgreen, uint8_t cblue);
 void FillGradient(CHSV color0, CHSV color1);
 void RainBowFade();
-void RainBowSmooth(int SpeedDelay);
+void RainBowSmooth();
 void Fireplace();
 
 // Служебные функции

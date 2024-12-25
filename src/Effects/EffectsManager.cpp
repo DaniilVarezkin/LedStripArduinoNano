@@ -13,7 +13,9 @@ int led_mode = 0;
 uint8_t idex = 0;
 uint8_t ihue = 0;
 uint8_t isat = 255;
+
 Perlin::Perlin2D perlin;
+long long ledUpdateTimer = 0;
 
 
 
@@ -33,7 +35,7 @@ CHSV gradcolor0 = CHSV(167, 255, 255);
 CHSV gradcolor1 = CHSV(90, 255, 255);
 
 
-void change_mode(int newmode){
+void ChangeMode(int newmode){
     thissat = 255;
     switch (newmode) //Настройка переменных конкретного эффекта
     {
@@ -50,15 +52,20 @@ void change_mode(int newmode){
     led_mode = newmode;
 }
 
-void update_leds(){
+
+
+void UpdateLeds(){
+  if((millis() - ledUpdateTimer) > thisdelay)
+  {
     switch (led_mode)
     {
         case 5: RainBowFade();  break;
-        case 6: RainBowSmooth(thisdelay);  break;
+        case 6: RainBowSmooth();  break;
         case 7: Fireplace();  break;
 
         default: break;
     }
+  }
 }
 void FillColor(uint8_t cred, uint8_t cgreen, uint8_t cblue){
   for (int i = 0 ; i < LED_COUNT; i++ ) {
@@ -77,13 +84,11 @@ void RainBowFade(){
     for(int idex = 0; idex < LED_COUNT; idex++){
         leds[idex] = CHSV(ihue, thissat, 255);
     }
-    
     LEDS.show();
-    delay(thisdelay);
 }
 
 
-void RainBowSmooth(int SpeedDelay){
+void RainBowSmooth(){
 
     byte *c;
     uint16_t i;
@@ -97,7 +102,6 @@ void RainBowSmooth(int SpeedDelay){
         }
     } else j = 0;
     FastLED.show();
-    delay(SpeedDelay);
 }
 
 char charByX(float x) {
@@ -125,7 +129,6 @@ void Fireplace(){
   }
   //Serial.println();
   LEDS.show();
-  delay(thisdelay); 
 }
 
 
@@ -142,9 +145,6 @@ CHSV ColorInGradient(CHSV color0, CHSV color1, float t){
   );
 }
 
-void PerlinStrip(int y){
-  
-}
 
 void setPixel(int Pixel, byte red, byte green, byte blue) {
   leds[Pixel].r = red;

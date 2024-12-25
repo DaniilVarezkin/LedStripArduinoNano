@@ -31,7 +31,7 @@ void setup() {
    BTserial.begin(BAUD_RATE);
 
 
-   change_mode(7); 
+   ChangeMode(7); 
 
    LEDS.setBrightness(brightness);  
    LEDS.addLeds<WS2811, LED_DT, BRG>(leds, LED_COUNT);
@@ -51,6 +51,6 @@ void loop() {
 
   CheckCommands();
 
-  update_leds();
+  UpdateLeds();
 }
 

@@ -1,5 +1,7 @@
 #include "CommandManager.h"
 
+
+
 char cmd_buf[32];
 
 // Таблица обработки команд
@@ -45,10 +47,10 @@ void processCommand(const char* command){
 }
 
 void CheckCommands(){
-    while (Serial.available())
+    while (BTserial.available())
     {
         memset(cmd_buf, 0, sizeof(cmd_buf));
-        Serial.readBytesUntil(CMD_DELIMITER, cmd_buf, sizeof(cmd_buf));
+        BTserial.readBytesUntil(CMD_DELIMITER, cmd_buf, sizeof(cmd_buf));
         processCommand(cmd_buf);
     }
 }

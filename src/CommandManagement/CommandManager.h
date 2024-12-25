@@ -6,6 +6,7 @@
 
 #include "Effects/EffectsParam.h"  
 #include "Effects/EffectsManager.h"
+#include "Bluetooth/Bluetooth.h"
 
 typedef struct {
     const char *key;

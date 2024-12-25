@@ -71,6 +71,7 @@ namespace Perlin {
 			{1, 0}, {-1, 0}, {0, 1}, {0, -1},
 			{0.707f, 0.707f}, {-0.707f, 0.707f}, {0.707f, -0.707f}, {-0.707f, -0.707f}
 		};
+
 		vector[0] = gradients[v][0];
 		vector[1] = gradients[v][1];
 	}

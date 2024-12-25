@@ -1,6 +1,10 @@
 #include <Arduino.h>
 #include "Effects/EffectsManager.h"
 #include "CommandManagement/CommandManager.h"
+#include "Bluetooth/Bluetooth.h"
+
+
+#define BAUD_RATE 38400
 
 extern int __bss_end;
 extern void *__brkval;
@@ -18,25 +22,31 @@ int memoryFree()
 
 
 void setup() {
-  Serial.begin(9600);
+   Serial.begin(BAUD_RATE);
+
+   Serial.print("Sketch:   ");   Serial.println(__FILE__);
+   Serial.print("Uploaded: ");   Serial.println(__DATE__);
+   Serial.println(" ");
+
+   BTserial.begin(BAUD_RATE);
 
 
-  change_mode(7); 
+   change_mode(7); 
 
-  LEDS.setBrightness(brightness);  
-  LEDS.addLeds<WS2811, LED_DT, BRG>(leds, LED_COUNT);
-  LEDS.show();                     
+   LEDS.setBrightness(brightness);  
+   LEDS.addLeds<WS2811, LED_DT, BRG>(leds, LED_COUNT);
+   LEDS.show();                     
 }
 
 //long long timer = 0;
 
 void loop() {
 
-  // if(millis() - timer > 1000){
-  //   timer = millis();
-  //   Serial.print("Memory free: ");
-  //   Serial.println(memoryFree());
-  // }
+//   if(millis() - timer > 1000){
+//     timer = millis();
+//     Serial.print("Memory free: ");
+//     Serial.println(memoryFree());
+//   }
 
 
   CheckCommands();

@@ -9,6 +9,7 @@ void handleMode(const char *value) {
         change_mode(atoi(value));
         SendResponse("OK");
     }
+    Serial.println("handleMode end");
 }
 
 void handleBrightness(const char *value) {

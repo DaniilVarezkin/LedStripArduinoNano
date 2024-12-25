@@ -47,7 +47,7 @@ namespace Perlin {
 		return tb;
 	}
 
-	float Perlin2D::lerp(float a, float b, float t)
+	inline float Perlin2D::lerp(float a, float b, float t)
 	{
 		return a + (b - a) * t;
 	}
@@ -76,7 +76,7 @@ namespace Perlin {
 		vector[1] = gradients[v][1];
 	}
 
-	float Perlin2D::Dot(const float* a, const float* b)
+	inline float Perlin2D::Dot(const float* a, const float* b)
 	{
 		return a[0] * b[0] + a[1] * b[1];
 	}

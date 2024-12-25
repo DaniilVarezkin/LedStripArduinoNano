@@ -7,20 +7,23 @@ void handleMode(const char *value) {
         SendResponse(response);
     } else {
         ChangeMode(atoi(value));
+        delay(10);
         SendResponse("OK");
+        
     }
-    Serial.println("handleMode end");
 }
 
 void handleBrightness(const char *value) {
     if (strcmp(value, CMD_GET) == 0) {
         char response[16];
+        int brightness = FastLED.getBrightness();
         sprintf(response, "%s=%d", CMD_BRIGHTNESS, brightness);
         SendResponse(response);
     } else {
         int new_brightness = atoi(value);
         new_brightness = constrain(new_brightness, 0, 255);
-        brightness = new_brightness;
+        FastLED.setBrightness(new_brightness);
+        delay(10);
         SendResponse("OK");
     }
 }

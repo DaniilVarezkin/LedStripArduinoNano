@@ -5,9 +5,6 @@ struct CRGB leds[LED_COUNT];
 
 //  Переменные настроек
 
-uint8_t brightness = 128;
-
-
 //  Служебные общие переменные 
 int led_mode = 0;
 uint8_t idex = 0;
@@ -35,21 +32,27 @@ CHSV gradcolor0 = CHSV(167, 255, 255);
 CHSV gradcolor1 = CHSV(90, 255, 255);
 
 
+
 void ChangeMode(int newmode){
     thissat = 255;
     switch (newmode) //Настройка переменных конкретного эффекта
     {
         case 0: FillColor(0, 0, 0); LEDS.show();          break;          // Пауза, залить всё черным
         case 1: FillColor(255, 255, 255); LEDS.show();    break;          // Всё белым
-        case 2: FillGradient(gradcolor0, gradcolor1); LEDS.show(); break; // Заливка градиентом
+        case 2: FillColor(255, 0, 0); LEDS.show();        break;          // Всё красным
+        case 3: FillColor(0, 255, 0); LEDS.show();        break;          // Всё зелёным
+        case 4: FillColor(0, 0, 255); LEDS.show();        break;          // Всё синим
+
+        case 5: FillGradient(gradcolor0, gradcolor1); LEDS.show(); break; // Заливка градиентом
         
-        case 5: thisdelay = FPS_TO_DELAY_MS(25);    break; // RainBowFade
-        case 6: thisdelay = FPS_TO_DELAY_MS(25);    break; // RainBowSmooth
-        case 7: thisdelay = FPS_TO_DELAY_MS(25);    break; // Fireplace
+        case 6: thisdelay = FPS_TO_DELAY_MS(25);    break; // RainBowFade
+        case 7: thisdelay = FPS_TO_DELAY_MS(40);    break; // RainBowSmooth
+        case 8: thisdelay = FPS_TO_DELAY_MS(25);    break; // Fireplace
         
         default: break;
     }
     led_mode = newmode;
+    delay(10);
 }
 
 
@@ -59,12 +62,13 @@ void UpdateLeds(){
   {
     switch (led_mode)
     {
-        case 5: RainBowFade();  break;
-        case 6: RainBowSmooth();  break;
-        case 7: Fireplace();  break;
+        case 6: RainBowFade();  break;
+        case 7: RainBowSmooth();  break;
+        case 8: Fireplace();  break;
 
         default: break;
     }
+    //printFreeMemory();
   }
 }
 void FillColor(uint8_t cred, uint8_t cgreen, uint8_t cblue){
@@ -95,12 +99,13 @@ void RainBowSmooth(){
     static uint16_t j;
 
     if(j < 256 * 5){
-        j++;
+        j += 1;
         for (i = 0; i < LED_COUNT; i++) {
             c = Wheel(((i * 256 / LED_COUNT) + j) & 255);
             setPixel(i, *c, *(c + 1), *(c + 2));
         }
     } else j = 0;
+
     FastLED.show();
 }
 

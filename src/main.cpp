@@ -4,22 +4,7 @@
 #include "Bluetooth/Bluetooth.h"
 
 
-#define BAUD_RATE 38400
-
-extern int __bss_end;
-extern void *__brkval;
-
-int memoryFree()
-{
-   int freeValue;
-   if((int)__brkval == 0)
-      freeValue = ((int)&freeValue) - ((int)&__bss_end);
-   else
-      freeValue = ((int)&freeValue) - ((int)__brkval);
-   return freeValue;
-}
-
-
+#define BAUD_RATE 9600
 
 void setup() {
    Serial.begin(BAUD_RATE);
@@ -31,9 +16,9 @@ void setup() {
    BTserial.begin(BAUD_RATE);
 
 
-   ChangeMode(7); 
+   ChangeMode(8); 
 
-   LEDS.setBrightness(brightness);  
+   LEDS.setBrightness(128);  
    LEDS.addLeds<WS2811, LED_DT, BRG>(leds, LED_COUNT);
    LEDS.show();                     
 }

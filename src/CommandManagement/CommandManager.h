@@ -14,6 +14,7 @@ typedef struct {
 } Command;
 
 void CheckCommands();
+bool validateMessage(const char* message);
 
 
 #endif

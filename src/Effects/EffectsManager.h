@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #include "EffectsParam.h"   
+#include "Utils/Utils.h"
 
 #define FPS_TO_DELAY_MS(x) {1000/x}
 
